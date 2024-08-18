@@ -18,7 +18,7 @@ class StockDataClient:
     def __buildurl(self, ds, ep):
         return self.BASE[ds] + self.ENDPOINTS[ds][ep]
     
-    def getgeneraltickerdata(self, endpoint, ticker):
+    def getgeneraldata(self, endpoint, ticker=None):
         DATASOURCE = 'polygon'
         url = self.__buildurl(DATASOURCE, endpoint)
         header = {'Authorization': 'Bearer ' + self.api_keys[DATASOURCE]}
@@ -26,12 +26,25 @@ class StockDataClient:
             case 'ticker':
                 r = requests.get(url=url+'/' + ticker, headers=header)
                 return r.json()
-            case 'div':
+            case 'div' | 'financials':
                 r = requests.get(url=url + '?ticker='+ticker+'&limit=10', headers=header)
                 return r.json()
-            case 'financials':
-                r = requests.get(url=url + '?ticker='+ticker+'&limit=10', headers=header)
+            case 'market_holiday' | 'market_now':
+                r = requests.get(url=url, headers=header)
                 return r.json()
-
+    
+    def daily_data(self, endpoint, ticker, interval, date_from, date_to):
+        DATASOURCE = 'stockdata'
+        url = self.__buildurl(DATASOURCE, endpoint)
+        header = {'Authorization': 'Bearer ' + self.api_keys[DATASOURCE]}
+        r = requests.get(
+            url=url 
+            + '?symbols=' + ticker 
+            + '&interval='+ interval 
+            + '&date_from=' + date_from 
+            + '&date_to=' + date_to, 
+            headers=header
+        )
+        return r.json()
 
     
