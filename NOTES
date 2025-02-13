@@ -1,0 +1,16 @@
+Infrastructure:
+- terraform
+- makefile?
+- minio/aws s3 --> minio in docker
+- docker
+- Should be easily run locally on any machine
+- inno steup for packaging to windows: https://jrsoftware.org/ishelp/
+- github actions for CI/CD
+- orchestrations: dagster
+- transformations: dbt
+- db: postgres (?) - Trino + iceberg would be ideal, but might be a bit overkill
+
+Flow:
+- First layer s3/minio --> dump results in csv --> BRONZE
+- spark to convert csv to iceberg, clean --> SILVER
+- dbt to transform to analytics layer --> GOLD
