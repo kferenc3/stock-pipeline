@@ -14,3 +14,11 @@ Flow:
 - First layer s3/minio --> dump results in csv --> BRONZE
 - spark to convert csv to iceberg, clean --> SILVER
 - dbt to transform to analytics layer --> GOLD
+
+Need:
+- yfinance data.info --> general company info + company officers
+- yfinance data.history --> historical stock data
+- yfinance data.financials --> yearly financials, NOPAT,NOPAT Yield
+- yfinance data.quarterly_financials --> quarterly financials, NOPAT,NOPAT Yield
+- yfinance data.recommendations --> recommendations
+

@@ -1,5 +1,10 @@
 import requests
 
+''' 
+for polygon the api client should be used, so that will be removed. 
+the custom client should be strictly for stockdata.org
+'''
+
 class StockDataClient:
     BASE = {'stockdata': 'https://api.stockdata.org/v1/data/',
             'polygon': 'https://api.polygon.io/'}
